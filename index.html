@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  
+
   <link rel="stylesheet" href="css/jquery.mobile-1.0a3.css"  media="screen" title="jquery mobile" charset="utf-8">
   <script src="js/jquery-1.5.1.js" type="text/javascript" charset="utf-8"></script>
   <script src="js/underscore.js" type="text/javascript" charset="utf-8"></script>
@@ -10,19 +10,25 @@
   <script src="js/backbone.localStorage.js" type="text/javascript" charset="utf-8"></script>
   <script src="js/jquery.mobile-1.0a3.js" type="text/javascript" charset="utf-8"></script>
   <script src="js/application.js" type="text/javascript" charset="utf-8"></script>
-  
-  
+
+
 </head>
 <body>
   <div id="home" data-role="page">
     <div data-role="header">
       <h1>Local Notes</h1>
+      <a href="#new" data-role="button" data-icon="plus" class="ui-btn-right">New</a>
     </div>
-    
+
     <div data-role="content">
-      Hello World!
+      <a href="#new" data-role="button" data-icon="plus" data-theme="a">New Note</a>
+
+      <ul data-role="listview" data-inset="true">
+        <li><a href="#all">All Notes</a></li>
+        <li><a href="#nearest">Nearest Notes</a></li>
+      </ul>
     </div>
-    
+
   </div>
 </body>
 </html>
