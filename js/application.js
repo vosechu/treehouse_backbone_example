@@ -26,13 +26,19 @@ var NotesApp = (function () {
     },
 
     createNote: function (e) {
-      e.preventDefault();
-
       var attrs = this.getAttributes,
           note = new Note();
 
       note.set(attrs);
       note.save();
+
+      // Prevent the form from submitting
+      e.preventDefault();
+      // Prevent jQuery Mobile from seeing the submit event
+      e.stopPropagation();
+
+      $('.ui-dialog').dialog('close');
+      this.reset();
     },
 
     getAttributes: function () {
@@ -40,11 +46,26 @@ var NotesApp = (function () {
         title: this.$('form [name=title]').val(),
         body: this.$('form [name=body]').val()
       };
+    },
+
+    reset: function () {
+      this.$('input, textarea').val('');
     }
   });
 
-  var Notes = Backbone.Collection.extend({
+  var NoteList = Backbone.Collection.extend({
+    model: Note,
 
+    localStorage: App.stores.notes,
+
+    initialize: function () {
+      var collection = this;
+
+      // When localStorage updates, fetch data from the store instead of an API
+      this.localStorage.bind('update', function () {
+        collection.fetch();
+      });
+    }
   });
 
   $(document).ready(function () {
