@@ -23,7 +23,7 @@ var NotesApp = (function () {
 
   });
 
-  window.note = Note;
+  window.Note = Note;
 
   return App;
 })();
