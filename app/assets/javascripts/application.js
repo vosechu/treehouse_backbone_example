@@ -74,6 +74,7 @@ var NotesApp = (function () {
     addOne: function (note) {
       var view = new NoteListItemView({model: note});
       $(this.el).append(view.render().el);
+      $(this.el).listview('refresh');
     },
 
     addAll: function () {
