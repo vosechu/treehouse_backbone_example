@@ -1,11 +1,12 @@
 var NotesApp = (function () {
   var App = {
     stores: {},
-    views: {}
+    views: {},
+    collections: {}
   };
 
   // Initialize localStorage
-  App.stores.notes = new Store('notes');
+  App.stores.notes = new Backbone.LocalStorage("notes");
 
   var Note = Backbone.Model.extend({
     localStorage: App.stores.notes,
@@ -53,26 +54,63 @@ var NotesApp = (function () {
     }
   });
 
-  var NoteList = Backbone.Collection.extend({
-    model: Note,
-
-    localStorage: App.stores.notes,
-
+  var NoteListView = Backbone.View.extend({
     initialize: function () {
-      var collection = this;
+      // Ensure `this` is always the view in these functions
+      _.bindAll(this, 'addOne', 'addAll');
 
-      // When localStorage updates, fetch data from the store instead of an API
-      this.localStorage.bind('update', function () {
-        collection.fetch();
-      });
+      this.collection.bind('add', this.addOne);
+      this.collection.bind('reset', this.addAll);
+
+      this.collection.fetch();
+    },
+
+    addOne: function (note) {
+      var view = new NoteListItemView({model: note});
+      $(this.el).append(view.render().el);
+    },
+
+    addAll: function () {
+      $(this.el).empty();
+      this.collection.each(this.addOne);
     }
   });
 
-  $(document).ready(function () {
-    App.views.new_form = new NewFormView({
-      el: $('#new')
-    });
+  var NoteListItemView = Backbone.View.extend({
+    tagName: 'li',
+
+    template: _.template($('#note-list-item-template').html()),
+
+    initialize: function () {
+      _.bindAll(this, 'render');
+
+      this.model.bind('change', this.render);
+    },
+
+    render: function () {
+      $(this.el).html(this.template({note: this.model}));
+      return this;
+    }
   });
+
+  var NoteList = Backbone.Collection.extend({
+    model: Note,
+
+    localStorage: App.stores.notes
+  });
+
+  App.collections.all_notes = new NoteList();
+
+  App.views.new_form = new NewFormView({
+    el: $('#new')
+  });
+
+  App.views.list_view = new NoteListView({
+    el: $('#all_notes'),
+    collection: App.collections.all_notes
+  });
+
+  window.Note = Note;
 
   return App;
 })();
