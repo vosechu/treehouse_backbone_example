@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
 
-  <link rel="stylesheet" href="css/jquery.mobile-1.0a3.css"  media="screen" title="jquery mobile" charset="utf-8">
+  <link rel="stylesheet" href="/assets/jquery.mobile-1.0a3.css"  media="screen" title="jquery mobile" charset="utf-8">
 </head>
 <body>
   <div id="home" data-role="page">
@@ -28,15 +28,15 @@
     </div>
 
     <div data-role="content">
-      <form action="#" method="post">
+      <form>
         <div data-role="fieldcontain">
-          <label for="title">Title</label>
-          <input id="title" name="title" value=""></input>
+          <label for="note_title">Title</label>
+          <input id="note_title" name="note[title]" value=""></input>
         </div>
 
         <div data-role="fieldcontain">
-          <label for="body">Body</label>
-          <textarea id="body" name="body" value=""></textarea>
+          <label for="note_body">Body</label>
+          <textarea id="note_body" name="note[body]" value=""></textarea>
         </div>
 
         <button data-icon="check" data-theme="b">Save</button>
@@ -52,6 +52,7 @@
 
     <div data-role="content">
       <ul data-role="listview" id="all_notes">
+        <li>Test</li>
       </ul>
     </div>
   </div>
@@ -60,12 +61,12 @@
     <a href="#note_<%= note.id %>"><%= note.get('title') %></a>
   </script>
 
-  <script src="js/jquery-1.5.1.js" type="text/javascript" charset="utf-8"></script>
-  <script src="js/underscore.js" type="text/javascript" charset="utf-8"></script>
-  <script src="js/backbone.js" type="text/javascript" charset="utf-8"></script>
-  <script src="js/backbone.localStorage.js" type="text/javascript" charset="utf-8"></script>
-  <script src="js/application.js" type="text/javascript" charset="utf-8"></script>
-  <script src="js/jquery.mobile-1.0a3.js" type="text/javascript" charset="utf-8"></script>
+  <script src="/assets/jquery-1.5.1.js" type="text/javascript" charset="utf-8"></script>
+  <script src="/assets/underscore.js" type="text/javascript" charset="utf-8"></script>
+  <script src="/assets/backbone.js" type="text/javascript" charset="utf-8"></script>
+  <script src="/assets/backbone.localStorage.js" type="text/javascript" charset="utf-8"></script>
+  <script src="/assets/application.js" type="text/javascript" charset="utf-8"></script>
+  <script src="/assets/jquery.mobile-1.0a3.js" type="text/javascript" charset="utf-8"></script>
 </body>
 </html>
 
